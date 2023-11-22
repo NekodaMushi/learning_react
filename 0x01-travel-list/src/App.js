@@ -27,6 +27,8 @@ function Form() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    initialItems.append(setDescription());
+    console.log(e);
   }
 
   return (
@@ -39,7 +41,12 @@ function Form() {
           </option>
         ))}
       </select>
-      <input type="text" placeholder="text.." />
+      <input
+        type="text"
+        placeholder="text.."
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
       <button>Add</button>
     </form>
   );
