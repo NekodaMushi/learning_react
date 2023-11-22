@@ -11,15 +11,19 @@ export default function App() {
   const [items, setItems] = useState([
     { id: 1, description: "Passports", quantity: 2, packed: false },
     { id: 2, description: "Socks", quantity: 12, packed: false },
-    { id: 2, description: "Chargers", quantity: 1, packed: true },
-    { id: 2, description: "Pants", quantity: 4, packed: false },
+    { id: 3, description: "Chargers", quantity: 1, packed: true },
+    { id: 4, description: "Pants", quantity: 4, packed: false },
   ]);
+
+  const addItem = (item) => {
+    setItems([...items, { ...item, id: items.length + 1 }]);
+  };
 
   return (
     <div className="app">
       <Logo />
-      <Form />
-      <PackingList />
+      <Form addItem={addItem} />
+      <PackingList items={items} />
       <Stats />
     </div>
   );
@@ -29,7 +33,7 @@ function Logo() {
   return <h1>🌴 Far Away 🌐</h1>;
 }
 
-function Form() {
+function Form({ addItem }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(3);
 
@@ -37,8 +41,8 @@ function Form() {
     e.preventDefault();
     // initialItems.append(setDescription());
     // console.log(e);
-    const newItem = { description, quantity, packed: false, id: Date.now() };
-    console.log(newItem);
+    const newItem = { description, quantity, packed: false };
+    addItem(newItem);
   }
 
   return (
@@ -62,11 +66,11 @@ function Form() {
   );
 }
 
-function PackingList() {
+function PackingList({ items }) {
   return (
     <div>
       <ul className="list">
-        {initialItems.map((item) => (
+        {items.map((item) => (
           <Item key={item.id} item={item} />
         ))}
       </ul>
