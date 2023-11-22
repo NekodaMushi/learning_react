@@ -1,13 +1,20 @@
 import { useState } from "react";
 
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: false },
-  { id: 2, description: "Socks", quantity: 12, packed: false },
-  { id: 2, description: "Chargers", quantity: 1, packed: true },
-  { id: 2, description: "Pants", quantity: 4, packed: false },
-];
+// const initialItems = [
+//   { id: 1, description: "Passports", quantity: 2, packed: false },
+//   { id: 2, description: "Socks", quantity: 12, packed: false },
+//   { id: 2, description: "Chargers", quantity: 1, packed: true },
+//   { id: 2, description: "Pants", quantity: 4, packed: false },
+// ];
 
 export default function App() {
+  const [items, setItems] = useState([
+    { id: 1, description: "Passports", quantity: 2, packed: false },
+    { id: 2, description: "Socks", quantity: 12, packed: false },
+    { id: 2, description: "Chargers", quantity: 1, packed: true },
+    { id: 2, description: "Pants", quantity: 4, packed: false },
+  ]);
+
   return (
     <div className="app">
       <Logo />
