@@ -33,7 +33,7 @@ function PackingList() {
     <div>
       <ul className="list">
         {initialItems.map((item) => (
-          <Item item={item} />
+          <Item key={item.id} item={item} />
         ))}
       </ul>
     </div>
