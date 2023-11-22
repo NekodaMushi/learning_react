@@ -43,6 +43,8 @@ function Form({ addItem }) {
     // console.log(e);
     const newItem = { description, quantity, packed: false };
     addItem(newItem);
+    setDescription("");
+    setQuantity(1);
   }
 
   return (
