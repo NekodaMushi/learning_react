@@ -11,8 +11,8 @@ export default function App() {
   const [items, setItems] = useState([
     { id: 1, description: "Passports", quantity: 2, packed: false },
     { id: 2, description: "Socks", quantity: 12, packed: false },
-    { id: 2, description: "Chargers", quantity: 1, packed: true },
-    { id: 2, description: "Pants", quantity: 4, packed: false },
+    { id: 3, description: "Chargers", quantity: 1, packed: true },
+    { id: 4, description: "Pants", quantity: 4, packed: false },
   ]);
 
   const addItem = (item) => {
@@ -33,7 +33,7 @@ function Logo() {
   return <h1>🌴 Far Away 🌐</h1>;
 }
 
-function Form() {
+function Form({ addItem }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(3);
 
@@ -43,6 +43,8 @@ function Form() {
     // console.log(e);
     const newItem = { description, quantity, packed: false };
     addItem(newItem);
+    setDescription("");
+    setQuantity(1);
   }
 
   return (
@@ -66,11 +68,11 @@ function Form() {
   );
 }
 
-function PackingList() {
+function PackingList({ items }) {
   return (
     <div>
       <ul className="list">
-        {initialItems.map((item) => (
+        {items.map((item) => (
           <Item key={item.id} item={item} />
         ))}
       </ul>
