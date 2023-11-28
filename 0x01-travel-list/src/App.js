@@ -17,7 +17,7 @@ export default function App() {
     localStorage.setItem("items", JSON.stringify(items));
   }, [items]);
 
-  const [packed, setPacked] = useState(false);
+  // const [packed, setItems] = useState(false);
 
   function handleAddItems(item) {
     setItems((items) => [...items, item]);
@@ -28,10 +28,12 @@ export default function App() {
   }
 
   function handleToggleItem(itemId) {
-    setPacked((items) => {
-      items.packed = true;
-      // crossed line
-    });
+    setItems((items) =>
+      items.map((item) =>
+        item.id === itemId ? { ...item, packed: !item.packed } : item
+      )
+    );
+    // crossed line
   }
 
   return (
@@ -131,3 +133,8 @@ function Stats() {
     </footer>
   );
 }
+
+// setItems((items) => {
+//   items.map((item) =>
+//     item.id === itemId ? { ...item, packed: !item.packed } : item
+//   );
