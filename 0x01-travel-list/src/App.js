@@ -8,7 +8,10 @@ import { useEffect, useState } from "react";
 // ];
 
 export default function App() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(() => {
+    const saveItems = localStorage.getItem("items");
+    return saveItems ? JSON.parse(saveItems) : [];
+  });
 
   useEffect(() => {
     localStorage.setItem("items", JSON.stringify(items));
