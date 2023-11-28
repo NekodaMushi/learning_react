@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // const initialItems = [
 //   { id: 1, description: "Passports", quantity: 2, packed: false },
@@ -9,6 +9,10 @@ import { useState } from "react";
 
 export default function App() {
   const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
 
   function handleAddItems(item) {
     setItems((items) => [...items, item]);
