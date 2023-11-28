@@ -22,7 +22,7 @@ export default function App() {
   }
 
   function handleRemoveItems(itemId) {
-    setItems((items) => items.filter((item) => item.id != itemId));
+    setItems((items) => items.filter((item) => item.id !== itemId));
   }
 
   return (
@@ -76,25 +76,25 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ items }) {
+function PackingList({ items, onRemove }) {
   return (
     <div>
       <ul className="list">
         {items.map((item) => (
-          <Item key={item.id} item={item} />
+          <Item key={item.id} item={item} onRemove={onRemove} />
         ))}
       </ul>
     </div>
   );
 }
 
-function Item({ item }) {
+function Item({ item, onRemove }) {
   return (
     <li>
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.description} {item.quantity}
       </span>
-      <button onClick={onRemove(item)}>❌</button>
+      <button onClick={() => onRemove(item.id)}>❌</button>
     </li>
   );
 }
