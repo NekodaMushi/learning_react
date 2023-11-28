@@ -17,6 +17,8 @@ export default function App() {
     localStorage.setItem("items", JSON.stringify(items));
   }, [items]);
 
+  const [packed, setPacked] = useState(false);
+
   function handleAddItems(item) {
     setItems((items) => [...items, item]);
   }
@@ -25,11 +27,22 @@ export default function App() {
     setItems((items) => items.filter((item) => item.id !== itemId));
   }
 
+  function handleToggleItem(itemId) {
+    setPacked((items) => {
+      items.packed = true;
+      // crossed line
+    });
+  }
+
   return (
     <div className="app">
       <Logo />
       <Form onAddItems={handleAddItems} />
-      <PackingList items={items} onRemove={handleRemoveItems} />
+      <PackingList
+        items={items}
+        onRemove={handleRemoveItems}
+        onPacked={handleToggleItem}
+      />
       <Stats />
     </div>
   );
@@ -76,22 +89,33 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ items, onRemove }) {
+function PackingList({ items, onRemove, onPacked }) {
   return (
     <div>
       <ul className="list">
         {items.map((item) => (
-          <Item key={item.id} item={item} onRemove={onRemove} />
+          <Item
+            key={item.id}
+            item={item}
+            onRemove={onRemove}
+            onPacked={onPacked}
+          />
         ))}
       </ul>
     </div>
   );
 }
 
-function Item({ item, onRemove }) {
+function Item({ item, onRemove, onPacked }) {
   return (
     <li>
-      <input type="checkbox" value={}
+      <input
+        type="checkbox"
+        value={item.packed}
+        onChange={() => {
+          onPacked;
+        }}
+      />
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.description} {item.quantity}
       </span>
