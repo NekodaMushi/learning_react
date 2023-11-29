@@ -30,7 +30,7 @@ export default function App() {
   function handleToggleItem(itemId) {
     setItems((items) =>
       items.map((item) =>
-        item.id === itemId ? { ...item, packed: !item.packed } : item
+      item.id === itemId ? {...item, packed: !pack}
       )
     );
     // crossed line
