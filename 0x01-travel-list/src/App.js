@@ -96,6 +96,11 @@ function PackingList({ items, onRemove, onPacked }) {
   let sortedItems;
 
   if (sortBy === "input") sortedItems = items;
+  // if (sortBy === "packed")
+  if (sortBy === "description")
+    sortedItems = items
+      .slice()
+      .sort((a, b) => a.description.localeCompare(b.description));
   return (
     <div>
       <ul
@@ -112,7 +117,7 @@ function PackingList({ items, onRemove, onPacked }) {
         ))}
 
         <div className="actions">
-          <select value={sortBy}>
+          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
             <option value="input">Sort by input order</option>
             <option value="description">Sort by description</option>
             <option value="packed">Sort by packed status</option>
