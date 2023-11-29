@@ -1,4 +1,4 @@
-export default function Stats({ items }) {
+export function Stats({ items }) {
   if (!items.length)
     return (
       <p className="stats">
