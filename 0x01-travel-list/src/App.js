@@ -91,6 +91,12 @@ function Form({ onAddItems }) {
 }
 
 function PackingList({ items, onRemove, onPacked }) {
+  if (!items.length)
+    return (
+      <p className="list">
+        <em>Waiting for items</em>
+      </p>
+    );
   return (
     <div>
       <ul className="list">
@@ -126,20 +132,24 @@ function Item({ item, onRemove, onPacked }) {
 }
 
 function Stats({ items }) {
+  if (!items.length)
+    return (
+      <p className="stats">
+        <em>Please add items in your packing list</em>
+      </p>
+    );
+
   const numItems = items.length;
   const packedItems = items.filter((item) => item.packed === true).length;
-  const totalItemsPacked = (packedItems / numItems) * 100;
+  const percentage = Math.round((packedItems / numItems) * 100);
   return (
     <footer className="stats">
       <em>
-        💼 You have {numItems} items on your list, and you already packed{" "}
-        {packedItems} ({totalItemsPacked}%)
+        {percentage === 100
+          ? "You're ready to go ! 🛫"
+          : `💼 You have ${numItems} items on your list, and you already packed
+        ${packedItems} (${percentage}%)`}
       </em>
     </footer>
   );
 }
-
-// setItems((items) => {
-//   items.map((item) =>
-//     item.id === itemId ? { ...item, packed: !item.packed } : item
-//   );
