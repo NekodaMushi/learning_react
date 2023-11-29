@@ -17,8 +17,6 @@ export default function App() {
     localStorage.setItem("items", JSON.stringify(items));
   }, [items]);
 
-  // const [packed, setItems] = useState(false);
-
   function handleAddItems(item) {
     setItems((items) => [...items, item]);
   }
@@ -46,7 +44,7 @@ export default function App() {
         onRemove={handleRemoveItems}
         onPacked={handleToggleItem}
       />
-      <Stats />
+      <Stats items={items} />
     </div>
   );
 }
@@ -127,10 +125,13 @@ function Item({ item, onRemove, onPacked }) {
   );
 }
 
-function Stats() {
+function Stats(items) {
+  const numItems = items.length;
   return (
     <footer className="stats">
-      <em>💼 You have X items on your list, and you already packed X (X%)</em>
+      <em>
+        💼 You have {numItems} items on your list, and you already packed X (X%)
+      </em>
     </footer>
   );
 }
