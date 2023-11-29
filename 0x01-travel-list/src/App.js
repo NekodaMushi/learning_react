@@ -92,8 +92,8 @@ function Form({ onAddItems }) {
 
 function PackingList({ items, onRemove, onPacked }) {
   return (
-    <div className="list">
-      <ul>
+    <div>
+      <ul className="list" style={items.length <=8 ? {minHeight: 60vh } : {}}>
         {items.map((item) => (
           <Item
             key={item.id}
@@ -102,14 +102,15 @@ function PackingList({ items, onRemove, onPacked }) {
             onPacked={onPacked}
           />
         ))}
+
+        <div className="actions">
+          <select>
+            <option value="input">Sort by input order</option>
+            <option value="description">Sort by description</option>
+            <option value="packed">Sort by packed status</option>
+          </select>
+        </div>
       </ul>
-      <div>
-        <select>
-          <option value="input">Sort by input order</option>
-          <option value="description">Sort by description</option>
-          <option value="packed">Sort by packed status</option>
-        </select>
-      </div>
     </div>
   );
 }
