@@ -91,12 +91,6 @@ function Form({ onAddItems }) {
 }
 
 function PackingList({ items, onRemove, onPacked }) {
-  if (!items.length)
-    return (
-      <p className="list">
-        <em>Waiting for items</em>
-      </p>
-    );
   return (
     <div>
       <ul className="list">
