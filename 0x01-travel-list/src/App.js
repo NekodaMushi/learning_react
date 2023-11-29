@@ -93,7 +93,10 @@ function Form({ onAddItems }) {
 function PackingList({ items, onRemove, onPacked }) {
   return (
     <div>
-      <ul className="list" style={items.length <=8 ? {minHeight: 60vh } : {}}>
+      <ul
+        className="list"
+        style={items.length <= 8 ? { minHeight: "65vh" } : {}}
+      >
         {items.map((item) => (
           <Item
             key={item.id}
