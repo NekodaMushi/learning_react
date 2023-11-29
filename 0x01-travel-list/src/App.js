@@ -92,8 +92,8 @@ function Form({ onAddItems }) {
 
 function PackingList({ items, onRemove, onPacked }) {
   return (
-    <div>
-      <ul className="list">
+    <div className="list">
+      <ul>
         {items.map((item) => (
           <Item
             key={item.id}
@@ -103,6 +103,13 @@ function PackingList({ items, onRemove, onPacked }) {
           />
         ))}
       </ul>
+      <div>
+        <select>
+          <option value="input">Sort by input order</option>
+          <option value="description">Sort by description</option>
+          <option value="packed">Sort by packed status</option>
+        </select>
+      </div>
     </div>
   );
 }
