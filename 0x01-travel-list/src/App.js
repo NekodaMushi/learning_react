@@ -50,7 +50,7 @@ export default function App() {
 }
 
 function Logo() {
-  return <h1>🌴 Far Away 🌐</h1>;
+  return <h1>🌴 Going Away 🌐</h1>;
 }
 
 function Form({ onAddItems }) {
@@ -125,12 +125,15 @@ function Item({ item, onRemove, onPacked }) {
   );
 }
 
-function Stats(items) {
+function Stats({ items }) {
   const numItems = items.length;
+  const packedItems = items.filter((item) => item.packed === true).length;
+  const totalItemsPacked = (packedItems / numItems) * 100;
   return (
     <footer className="stats">
       <em>
-        💼 You have {numItems} items on your list, and you already packed X (X%)
+        💼 You have {numItems} items on your list, and you already packed{" "}
+        {packedItems} ({totalItemsPacked}%)
       </em>
     </footer>
   );
