@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Form from "./components/Form";
-// import PackingList from "./components/tempPackingList";
+import PackingList from "./components/PackingList";
 import Item from "./components/Item";
+
 import Stats from "./components/Stats";
 
 // const initialItems = [

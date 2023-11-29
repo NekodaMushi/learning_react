@@ -1,4 +1,6 @@
-export default function Item({ item, onRemove, onPacked }) {
+import React from "react";
+
+function Item({ item, onRemove, onPacked }) {
   return (
     <li>
       <input
@@ -15,3 +17,4 @@ export default function Item({ item, onRemove, onPacked }) {
     </li>
   );
 }
+export default Item;
