@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Form from "./components/Form";
-import PackingList from "./components/PackingList";
+// import PackingList from "./components/tempPackingList";
 import Item from "./components/Item";
 import Stats from "./components/Stats";
 

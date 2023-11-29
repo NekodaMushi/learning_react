@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 export default function Item({ item, onRemove, onPacked }) {
   return (
     <li>
