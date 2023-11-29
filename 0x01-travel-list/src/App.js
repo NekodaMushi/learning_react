@@ -28,12 +28,13 @@ export default function App() {
   }
 
   function handleToggleItem(itemId) {
-    setItems((items) =>
-      items.map((item) =>
-      item.id === itemId ? {...item, packed: !pack}
-      )
+    setItems(
+      (items) =>
+        items.map((item) =>
+          item.id === itemId ? { ...item, packed: !item.packed } : item
+        )
+      // crossed line
     );
-    // crossed line
   }
 
   return (
@@ -115,7 +116,7 @@ function Item({ item, onRemove, onPacked }) {
         type="checkbox"
         value={item.packed}
         onChange={() => {
-          onPacked;
+          onPacked(item.id);
         }}
       />
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
