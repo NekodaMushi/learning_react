@@ -25,7 +25,7 @@ const initialFriends = [
 export default function App() {
   const [friends, setFriends] = useState(initialFriends);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedFriend, setSelectedFriend] = useState();
+  const [selectedFriend, setSelectedFriend] = useState(null);
 
   function handleToggle() {
     setIsOpen(!isOpen);
@@ -127,10 +127,7 @@ function FormAddFriend({ onAddFriends }) {
   );
 }
 
-function FormSplitBill() {
-  {
-    selectedFriend;
-  }
+function FormSplitBill({ selectedFriend }) {
   return (
     <form className="form-add-friend">
       <h2>Split a bill with {selectedFriend.name}</h2>
