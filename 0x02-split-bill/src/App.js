@@ -21,14 +21,33 @@ const initialFriends = [
   },
 ];
 
+function Button({ children, onClick }) {
+  return (
+    <button className="button" onClick={onClick}>
+      {children}
+    </button>
+  );
+}
+
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
+
+  function handleToggle() {
+    setIsOpen(!isOpen);
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
         <FriendsList />
-        <FormAddFriend />
-        <Button>Add Friend</Button>
+        {isOpen ? (
+          <>
+            <FormAddFriend />
+            <Button onClick={handleToggle}>Close</Button>{" "}
+          </>
+        ) : (
+          <Button onClick={handleToggle}>Open</Button>
+        )}
       </div>
       <FormSplitBill />
     </div>
@@ -65,10 +84,6 @@ function Friend({ friend }) {
       <Button>Select</Button>
     </li>
   );
-}
-
-function Button({ children }) {
-  return <button className="button">{children}</button>;
 }
 
 function FormAddFriend() {
