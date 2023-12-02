@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const initialFriends = [
   {
     id: 118836,
@@ -20,6 +22,7 @@ const initialFriends = [
 ];
 
 export default function App() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="app">
       <div className="sidebar">
@@ -82,16 +85,20 @@ function FormAddFriend() {
 
 function FormSplitBill() {
   return (
-    <form className="form-split-friend">
+    <form className="form-add-friend">
       <h2>Split a bill with X</h2>
       <label>💰Bill value</label>
-      <input type="text"></input>
+      <input type="text" />
       <label>🏃‍♂️Your expense</label>
-      <input type="text"></input>
-      <label>Friend expense</label>
-      <input type="text"></input>
-      <label>🌄Who is paying the bill?</label>
-      <select></select>
+      <input type="text" />
+      <label>💁Friend expense</label>
+      <input type="text" disabled />
+
+      <label>🤑Who is paying the bill?</label>
+      <select>
+        <option value="user">You</option>
+        <option value="X">Friend</option>
+      </select>
       <Button>Split bill</Button>
     </form>
   );
