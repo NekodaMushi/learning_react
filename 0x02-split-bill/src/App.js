@@ -25,19 +25,29 @@ const initialFriends = [
 export default function App() {
   const [friends, setFriends] = useState(initialFriends);
   const [isOpen, setIsOpen] = useState(false);
+  const [isSelect, setIsSelect] = useState(false);
 
   function handleToggle() {
     setIsOpen(!isOpen);
   }
 
+  function handleSelect() {
+    setIsSelect(!isSelect);
+  }
+
+  function handleAddFriend(friend) {
+    setFriends((friends) => [...friends, friend]);
+    setIsOpen(false);
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendsList friends={friends} />
-        {isOpen && <FormAddFriend />}
+        <FriendsList friends={friends} onSelect={handleSelect} />
+        {isOpen && <FormAddFriend onAddFriends={handleAddFriend} />}
         <Button onClick={handleToggle}>{isOpen ? "Close" : "Open"}</Button>
       </div>
-      <FormSplitBill />
+      {isSelect && <FormSplitBill />}
     </div>
   );
 }
@@ -52,7 +62,7 @@ function FriendsList({ friends }) {
   );
 }
 
-function Friend({ friend }) {
+function Friend({ friend, onSelect }) {
   return (
     <li>
       <img src={friend.image} alt={friend.name}></img>
@@ -68,14 +78,14 @@ function Friend({ friend }) {
         </p>
       )}
       {friend.balance === 0 && <p>You and {friend.name} are even</p>}
-      <Button>Select</Button>
+      <Button onClick={onSelect}>Select</Button>
     </li>
   );
 }
 
-function FormAddFriend() {
-  const [image, setImage] = useState("");
-  const [name, setName] = useState("https://i.pravatar.cc/48");
+function FormAddFriend({ onAddFriends }) {
+  const [image, setImage] = useState("https://i.pravatar.cc/48");
+  const [name, setName] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -91,7 +101,7 @@ function FormAddFriend() {
       balance: 0,
     };
 
-    console.log(newFriend);
+    onAddFriends(newFriend);
     setName("");
     setImage("https://i.pravatar.cc/48");
   }
