@@ -79,31 +79,22 @@ function FormAddFriend() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    const id = crypto.randomUUID();
-    const newFriends = {
-      name,
-      id,
-      image: "https://i.pravatar.cc/48?" + id,
-      balance: 0,
-    };
-    setImage("");
-    setName("");
-    console.log(newFriends);
   }
   return (
     <form className="form-add-friend" onSubmit={handleSubmit}>
       <label>🧑‍🤝‍🧑Friend name</label>
       <input
         type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        value={image}
+        onChange={(e) => setImage(e.target.value)}
       ></input>
       <label>🌄Image URL</label>
       <input
         type="text"
-        value={image}
-        onChange={(e) => setImage(e.target.value)}
+        value={name}
+        onChange={(e) =>
+          setName("https://i.pravatar.cc/?u=9333" + e.target.value)
+        }
       ></input>
       <Button>Add</Button>
     </form>
