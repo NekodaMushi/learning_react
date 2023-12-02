@@ -80,18 +80,12 @@ function FormAddFriend() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    function generateRandomNumber() {
-      const randomNumber = Math.floor(Math.random() * 999) + 1;
-      return String(randomNumber).padStart(3, "0");
-    }
-
-    const randomNum = generateRandomNumber();
-
+    const id = crypto.randomUUID();
     const newFriends = {
       name,
-      image: "https://i.pravatar.cc/48?u=499" + randomNum,
+      id,
+      image: "https://i.pravatar.cc/48?" + id,
       balance: 0,
-      id: crypto.randomUUID(),
     };
     setImage("");
     setName("");
