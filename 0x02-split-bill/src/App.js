@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "./components/Button";
 
 const initialFriends = [
   {
@@ -21,14 +22,6 @@ const initialFriends = [
   },
 ];
 
-function Button({ children, onClick }) {
-  return (
-    <button className="button" onClick={onClick}>
-      {children}
-    </button>
-  );
-}
-
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,14 +33,8 @@ export default function App() {
     <div className="app">
       <div className="sidebar">
         <FriendsList />
-        {isOpen ? (
-          <>
-            <FormAddFriend />
-            <Button onClick={handleToggle}>Close</Button>{" "}
-          </>
-        ) : (
-          <Button onClick={handleToggle}>Open</Button>
-        )}
+        {isOpen && <FormAddFriend />}
+        <Button onClick={handleToggle}>{isOpen ? "Close" : "Open"}</Button>
       </div>
       <FormSplitBill />
     </div>
