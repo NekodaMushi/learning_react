@@ -24,7 +24,11 @@ const initialFriends = [
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
-  const [friend, setFriend] = useState([]);
+  const [addFriend, setAddFriend] = useState([]);
+
+  function handleAddFriend(id) {
+    setAddFriend(id);
+  }
 
   function handleToggle() {
     setIsOpen(!isOpen);
@@ -33,8 +37,8 @@ export default function App() {
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendsList />
-        {isOpen && <FormAddFriend />}
+        <FriendsList onAddFriend={addFriend} />
+        {isOpen && <FormAddFriend onSetAddFriend={handleAddFriend} />}
         <Button onClick={handleToggle}>{isOpen ? "Close" : "Open"}</Button>
       </div>
       <FormSplitBill />
@@ -42,13 +46,15 @@ export default function App() {
   );
 }
 
-function FriendsList() {
+function FriendsList({ onAddFriend }) {
   const friends = initialFriends;
+  const newPotos = onAddFriend;
   return (
     <ul>
       {friends.map((friend) => (
         <Friend friend={friend} key={friend.id} />
       ))}
+      {newPotos}
     </ul>
   );
 }
@@ -74,7 +80,7 @@ function Friend({ friend }) {
   );
 }
 
-function FormAddFriend() {
+function FormAddFriend({ onSetAddFriend }) {
   const [image, setImage] = useState("https://i.pravatar.cc/48?u=");
   const [name, setName] = useState("");
 
@@ -90,7 +96,7 @@ function FormAddFriend() {
     };
     setImage("");
     setName("");
-    console.log(newFriends);
+    onSetAddFriend(newFriends);
   }
   return (
     <form className="form-add-friend" onSubmit={handleSubmit}>
