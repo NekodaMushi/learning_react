@@ -25,6 +25,10 @@ export default function App() {
       <div className="sidebar">
         <FriendsList />
       </div>
+      /
+      <div className="form-add-friend">
+        <FriendAdd />
+      </div>
     </div>
   );
 }
@@ -45,10 +49,21 @@ function Friend({ friend }) {
     <li>
       <img src={friend.image} alt={friend.name}></img>
       <h3>{friend.name}</h3>
-      <p>You own</p>
+      {friend.balance < 0 && (
+        <p className="red">
+          You own {friend.name} {Math.abs(friend.balance)}$
+        </p>
+      )}
       <button className="button">Selection</button>
     </li>
   );
 }
 
-function 
+function FriendAdd() {
+  return (
+    <li>
+      <label>Friend name</label>
+      <input></input>
+    </li>
+  );
+}
