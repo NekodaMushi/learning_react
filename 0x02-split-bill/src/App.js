@@ -24,11 +24,10 @@ export default function App() {
     <div className="app">
       <div className="sidebar">
         <FriendsList />
-      </div>
-      /
-      <div>
         <FormAddFriend />
+        <Button>Add Friend</Button>
       </div>
+      <FormSplitBill />
     </div>
   );
 }
@@ -60,10 +59,13 @@ function Friend({ friend }) {
         </p>
       )}
       {friend.balance === 0 && <p>You and {friend.name} are even</p>}
-
-      <button className="button">Select</button>
+      <Button>Select</Button>
     </li>
   );
+}
+
+function Button({ children }) {
+  return <button className="button">{children}</button>;
 }
 
 function FormAddFriend() {
@@ -73,6 +75,24 @@ function FormAddFriend() {
       <input type="text"></input>
       <label>🌄Image URL</label>
       <input type="text"></input>
+      <Button>Add</Button>
+    </form>
+  );
+}
+
+function FormSplitBill() {
+  return (
+    <form className="form-split-friend">
+      <h2>Split a bill with X</h2>
+      <label>💰Bill value</label>
+      <input type="text"></input>
+      <label>🏃‍♂️Your expense</label>
+      <input type="text"></input>
+      <label>Friend expense</label>
+      <input type="text"></input>
+      <label>🌄Who is paying the bill?</label>
+      <select></select>
+      <Button>Split bill</Button>
     </form>
   );
 }
