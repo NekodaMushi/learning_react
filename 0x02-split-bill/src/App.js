@@ -24,6 +24,7 @@ const initialFriends = [
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const [friend, setFriend] = useState([]);
 
   function handleToggle() {
     setIsOpen(!isOpen);
@@ -74,17 +75,17 @@ function Friend({ friend }) {
 }
 
 function FormAddFriend() {
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState("https://i.pravatar.cc/48?u=");
   const [name, setName] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-
+    if (!name || !image) return;
     const id = crypto.randomUUID();
     const newFriends = {
       name,
       id,
-      image: "https://i.pravatar.cc/48?" + id,
+      image: image + id,
       balance: 0,
     };
     setImage("");
