@@ -146,21 +146,22 @@ function FormAddFriend({ onAddFriends }) {
 function FormSplitBill({ selectedFriend }) {
   const [bill, setBill] = useState("");
   const [paidByUser, setPaidByUser] = useState("");
-  const paidByFriend = bill - paidByUser;
+  const paidByFriend = bill ? bill - paidByUser : "";
   const [whoIsPaying, setWhoIsPaying] = useState("user");
 
   function handleSubmit(e) {
     e.preventDefault();
   }
+
+  function setSet(setter, e) {
+    setter(Number(e.target.value));
+  }
+
   return (
     <form className="form-add-friend" onSubmit={handleSubmit}>
       <h2>Split a bill with {selectedFriend.name}</h2>
       <label>💰Bill value</label>
-      <input
-        type="text"
-        value={bill}
-        onChange={(e) => setBill(Number(e.target.value))}
-      />
+      <input type="text" value={bill} onChange={(e) => setSet(setBill(e))} />
       <label>🏃‍♂️Your expense</label>
       <input
         type="text"
