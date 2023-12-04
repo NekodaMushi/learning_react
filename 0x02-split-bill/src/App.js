@@ -150,35 +150,29 @@ function FormSplitBill({ selectedFriend }) {
   const [whoIsPaying, setWhoIsPaying] = useState("user");
 
   function handleSubmit(e) {
+    if (!bill || !paidByUser) return;
     e.preventDefault();
-  }
-
-  function setSet(setter) {
-    return function (e) {
-      const value = Number(e.target.value);
-      if (setter === setBill) {
-        setter(value);
-      } else if (setter === setPaidByUser) {
-        if (value <= bill) {
-          setter(value);
-        } else {
-          setter(bill);
-        }
-      }
-    };
   }
 
   return (
     <form className="form-add-friend" onSubmit={handleSubmit}>
       <h2>Split a bill with {selectedFriend.name}</h2>
       <label>💰Bill value</label>
-      <input type="text" value={bill} onChange={setSet(setBill)} />
+      <input
+        type="text"
+        value={bill}
+        onChange={(e) => setBill(Number(e.target.value))}
+      />
       <label>🏃‍♂️Your expense</label>
       <input
         type="text"
         value={paidByUser}
         // disabled={whoIsPaying === "friend"}
-        onChange={setSet(setPaidByUser)}
+        onChange={(e) =>
+          setPaidByUser(
+            Number(e.target.value) > bill ? paidByUser : Number(e.target.value)
+          )
+        }
       />
       <label>💁Friend expense</label>
       <input
@@ -190,7 +184,10 @@ function FormSplitBill({ selectedFriend }) {
       />
 
       <label>🤑Who is paying the bill?</label>
-      <select value={whoIsPaying} onChange={setSet(setWhoIsPaying)}>
+      <select
+        value={whoIsPaying}
+        onChange={(e) => setWhoIsPaying(e.target.value)}
+      >
         <option value="user">You</option>
         <option value="friend">Friend</option>
       </select>
