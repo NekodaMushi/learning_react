@@ -40,6 +40,7 @@ export default function App() {
     setSelectedFriend((curSelect) =>
       curSelect && curSelect.id === friend.id ? null : friend
     );
+    setIsOpen(false);
   }
 
   return (
