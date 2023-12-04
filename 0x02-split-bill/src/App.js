@@ -146,6 +146,7 @@ function FormAddFriend({ onAddFriends }) {
 function FormSplitBill({ selectedFriend }) {
   const [bill, setBill] = useState("");
   const [paidByUser, setPaidByUser] = useState("");
+  const paidByFriend = bill - paidByUser;
   const [whoIsPaying, setWhoIsPaying] = useState("user");
 
   function handleSubmit(e) {
@@ -158,26 +159,31 @@ function FormSplitBill({ selectedFriend }) {
       <input
         type="text"
         value={bill}
-        onChange={(e) => setBill(e.target.value)}
+        onChange={(e) => setBill(Number(e.target.value))}
       />
       <label>🏃‍♂️Your expense</label>
       <input
         type="text"
         value={paidByUser}
-        onChange={(e) => setPaidByUser(e.target.value)}
+        // disabled={whoIsPaying === "friend"}
+        onChange={(e) => setPaidByUser(Number(e.target.value))}
       />
       <label>💁Friend expense</label>
       <input
         type="text"
+        // disabled={whoIsPaying === "user"} Could switch the disabled field like that
         disabled
-        value={paidByUser}
-        onChange={(e) => setPaidByUser(e.target.value)}
+        value={paidByFriend}
+        // onChange={(e) => setPaidByUser(Number(e.target.value))}
       />
 
       <label>🤑Who is paying the bill?</label>
-      <select value={whoIsPaying} onChange={}>
+      <select
+        value={whoIsPaying}
+        onChange={(e) => setWhoIsPaying(e.target.value)}
+      >
         <option value="user">You</option>
-        <option value="X">Friend</option>
+        <option value="friend">Friend</option>
       </select>
       <Button>Split bill</Button>
     </form>
