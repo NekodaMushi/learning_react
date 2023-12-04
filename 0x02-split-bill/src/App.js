@@ -44,7 +44,6 @@ export default function App() {
   }
 
   function handleSplitBill(value) {
-    console.log(value);
     setFriends((friends) =>
       friends.map((friend) =>
         friend.id === selectedFriend.id
@@ -52,6 +51,7 @@ export default function App() {
           : friend
       )
     );
+    setSelectedFriend(null);
   }
 
   return (
@@ -170,9 +170,9 @@ function FormSplitBill({ selectedFriend, onSplitBill }) {
     e.preventDefault();
     if (!bill || !paidByUser) return;
     onSplitBill(due);
-    setBill("");
-    setPaidByUser("");
-    setWhoIsPaying("user");
+    // setBill("");
+    // setPaidByUser("");
+    // setWhoIsPaying("user"); no need because split window is closed after entering new value
   }
 
   return (
