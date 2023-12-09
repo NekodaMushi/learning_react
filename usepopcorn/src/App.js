@@ -54,21 +54,20 @@ const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
   return (
     <>
-      <Navbar movies={movies} />
-      <Main movies={movies} />
+      <Navbar />
+      <Main />
     </>
   );
 }
 // NAV
-function Navbar({ movies }) {
+function Navbar() {
   return (
     <nav className="nav-bar">
       <Logo />
       <Search />
-      <NumResult movies={movies} />
+      <NumResult />
     </nav>
   );
 }
@@ -93,25 +92,26 @@ function Search() {
     />
   );
 }
-function NumResult({ movies }) {
+function NumResult() {
   return (
     <p className="num-results">
-      Found <strong>{movies.length}</strong> results
+      Found <strong>X</strong> results
     </p>
   );
 }
 
 // MAIN
 
-function Main({ movies }) {
+function Main() {
   return (
     <main className="main">
-      <SearchResult movies={movies} />
+      <SearchResult />
       <MoviesWatched />
     </main>
   );
 }
-function SearchResult({ movies }) {
+// First Box
+function SearchResult() {
   const [isOpen1, setIsOpen1] = useState(true);
 
   return (
@@ -122,25 +122,38 @@ function SearchResult({ movies }) {
       >
         {isOpen1 ? "–" : "+"}
       </button>
-      {isOpen1 && (
-        <ul className="list">
-          {movies?.map((movie) => (
-            <li key={movie.imdbID}>
-              <img src={movie.Poster} alt={`${movie.Title} poster`} />
-              <h3>{movie.Title}</h3>
-              <div>
-                <p>
-                  <span>🗓</span>
-                  <span>{movie.Year}</span>
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+
+      {isOpen1 && <MoviesList />}
     </div>
   );
 }
+
+function MoviesList() {
+  const [movies, setMovies] = useState(tempMovieData);
+  return (
+    <ul className="list">
+      {movies?.map((movie) => (
+        <MovieMap movie={movie} key={movie.imdbID} />
+      ))}
+    </ul>
+  );
+}
+
+function MovieMap({ movie }) {
+  return (
+    <li>
+      <img src={movie.Poster} alt={`${movie.Title} poster`} />
+      <h3>{movie.Title}</h3>
+      <div>
+        <p>
+          <span>🗓</span>
+          <span>{movie.Year}</span>
+        </p>
+      </div>
+    </li>
+  );
+}
+// Second BOX
 function MoviesWatched() {
   const [isOpen2, setIsOpen2] = useState(true);
   const [watched, setWatched] = useState(tempWatchedData);
