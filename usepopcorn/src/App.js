@@ -62,7 +62,9 @@ export default function App() {
         <NumResult movies={movies} />
       </Navbar>
       <Main>
-        <SearchResult movies={movies} />
+        <SearchResult>
+          <MoviesList movies={movies} />
+        </SearchResult>
         <MoviesWatched movies={movies} />
       </Main>
     </>
@@ -123,7 +125,7 @@ function SearchResult({ children }) {
         {isOpen1 ? "–" : "+"}
       </button>
 
-      {isOpen1 && <MoviesList>{children}</MoviesList>}
+      {isOpen1 && children}
     </div>
   );
 }
