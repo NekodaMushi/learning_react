@@ -58,7 +58,7 @@ export default function App() {
   return (
     <>
       <Navbar />
-      <Main />
+      <Main movies={movies} />
     </>
   );
 }
@@ -103,16 +103,16 @@ function NumResult() {
 
 // MAIN
 
-function Main() {
+function Main({ movies }) {
   return (
     <main className="main">
-      <SearchResult />
-      <MoviesWatched />
+      <SearchResult movies={movies} />
+      <MoviesWatched movies={movies} />
     </main>
   );
 }
 // First Box
-function SearchResult() {
+function SearchResult({ movies }) {
   const [isOpen1, setIsOpen1] = useState(true);
 
   return (
@@ -124,12 +124,12 @@ function SearchResult() {
         {isOpen1 ? "–" : "+"}
       </button>
 
-      {isOpen1 && <MoviesList />}
+      {isOpen1 && <MoviesList movies={movies} />}
     </div>
   );
 }
 
-function MoviesList() {
+function MoviesList({ movies }) {
   return (
     <ul className="list">
       {movies?.map((movie) => (
