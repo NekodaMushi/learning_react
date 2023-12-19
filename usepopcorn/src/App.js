@@ -57,18 +57,22 @@ export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   return (
     <>
-      <Navbar />
-      <Main movies={movies} />
+      <Navbar>
+        <Search />
+        <NumResult movies={movies} />
+      </Navbar>
+      <Main>
+        <SearchResult movies={movies} />
+        <MoviesWatched movies={movies} />
+      </Main>
     </>
   );
 }
 // NAV
-function Navbar() {
+function Navbar({ children }) {
   return (
     <nav className="nav-bar">
-      <Logo />
-      <Search />
-      <NumResult />
+      <Logo /> {children}
     </nav>
   );
 }
@@ -103,16 +107,11 @@ function NumResult() {
 
 // MAIN
 
-function Main({ movies }) {
-  return (
-    <main className="main">
-      <SearchResult movies={movies} />
-      <MoviesWatched movies={movies} />
-    </main>
-  );
+function Main({ children }) {
+  return <main className="main">{children}</main>;
 }
 // First Box
-function SearchResult({ movies }) {
+function SearchResult({ children }) {
   const [isOpen1, setIsOpen1] = useState(true);
 
   return (
@@ -124,7 +123,7 @@ function SearchResult({ movies }) {
         {isOpen1 ? "–" : "+"}
       </button>
 
-      {isOpen1 && <MoviesList movies={movies} />}
+      {isOpen1 && <MoviesList>{children}</MoviesList>}
     </div>
   );
 }
