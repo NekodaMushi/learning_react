@@ -16,8 +16,8 @@ const textStyle = {
 
 export default function StarRating({ maxRating }) {
   return (
-    <div>
-      <div style={containerStyle}>
+    <div style={containerStyle}>
+      <div style={starContainerStyle}>
         {Array.from({ length: maxRating }, (_, i) => (
           <span>S{i + 1}</span>
         ))}
