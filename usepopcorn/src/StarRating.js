@@ -15,6 +15,7 @@ export default function StarRating({
   maxRating = 5,
   color = "#fcc419",
   size = 48,
+  message = [],
 }) {
   const [rating, setRating] = useState(1);
   const [tempRating, setTempRating] = useState(1);
@@ -45,7 +46,11 @@ export default function StarRating({
           />
         ))}
       </div>
-      <p style={textStyle}>{tempRating || rating || ""}</p>
+      <p style={textStyle}>
+        {message.length === maxRating
+          ? message[rating - 1]
+          : tempRating || rating || ""}
+      </p>
     </div>
   );
 }
