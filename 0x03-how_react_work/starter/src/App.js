@@ -66,10 +66,10 @@ function TabContent({ item }) {
   const [likes, setLikes] = useState(0);
 
   function handleInc() {
-    setLikes(likes + 1);
+    setLikes((likes) => likes + 1);
   }
   function handleTripleInc() {
-    setLikes(likes + 3);
+    setLikes((likes) => likes + 3);
   }
   function handleUndo() {
     setLikes(0);
@@ -77,8 +77,7 @@ function TabContent({ item }) {
   }
   function handle2Undo() {
     setTimeout(function () {
-      setLikes(0);
-      setShowDetails(true);
+      handleUndo();
     }, 2000);
   }
 
