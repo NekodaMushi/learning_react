@@ -56,12 +56,12 @@ const average = (arr) =>
 const KEY = "7b15cb43";
 
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
 
   fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=interstellar`)
     .then((res) => res.json())
-    .then((data) => console.log(data));
+    .then((data) => console.log(setMovies(data.Search)));
 
   return (
     <>
