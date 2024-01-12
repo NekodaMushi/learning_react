@@ -60,16 +60,28 @@ export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const movieSearched = "interstellar";
 
   useEffect(function () {
     async function fetchMovies() {
-      setIsLoading(true);
-      const res = await fetch(
-        `https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${movieSearched}`
-      );
-      const data = await res.json();
-      setMovies(data.Search);
+      try {
+        setIsLoading(true);
+        const res = await fetch(
+          `https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${movieSearched}`
+        );
+
+        if (!res.ok) {
+          throw new Error("Something went wrong with fetching movies       ");
+        }
+        const data = await res.json();
+        setMovies(data.Search);
+      } catch (err) {
+        console.log(err.message);
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchMovies();
     setIsLoading(false);
@@ -82,7 +94,12 @@ export default function App() {
         <NumResult movies={movies} />
       </Navbar>
       <Main>
-        <Box>{isLoading ? <Spinner /> : <MoviesList movies={movies} />}</Box>
+        <Box>
+          {/* {isLoading ? <Spinner /> : <MoviesList movies={movies} />} */}
+          {isLoading && <Spinner />}
+          {!isLoading && !error && <MoviesList movies={movies} />}
+          {error && < ErrorMessage}
+        </Box>
         <Box movies={movies}>
           <WatchedSummary watched={watched} />
           <WatchedMoviesList watched={watched} />
@@ -150,6 +167,14 @@ function Box({ children }) {
 
 function Spinner() {
   return <img className="spinner" src={SpinnerSVG} alt="Loading..." />;
+}
+
+function ErrorMessage({ message }) {
+  return (
+    <p className="Error">
+      <span>👾</span> {message}
+    </p>
+  );
 }
 
 function MoviesList({ movies }) {
