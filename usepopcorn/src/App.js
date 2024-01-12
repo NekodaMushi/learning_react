@@ -149,7 +149,7 @@ function Box({ children }) {
 }
 
 function Spinner() {
-  return <img src={SpinnerSVG} alt="Loading..." />;
+  return <img className="spinner" src={SpinnerSVG} alt="Loading..." />;
 }
 
 function MoviesList({ movies }) {

@@ -379,3 +379,10 @@ EMPTY STAR
 </svg>
 
 */
+
+.spinner {
+  display: block;
+  /* margin: auto; */
+  margin-top: 75%;
+  margin-left: 47%;
+}
