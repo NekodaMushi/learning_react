@@ -54,8 +54,8 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-const KEY = "7b15cb43";
-
+const KEY = "wdaqdwafsdfeqsad";
+// 7b15cb43
 export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
@@ -74,7 +74,10 @@ export default function App() {
         if (!res.ok) {
           throw new Error("Something went wrong with fetching movies       ");
         }
+
         const data = await res.json();
+
+        console.log(data);
         setMovies(data.Search);
       } catch (err) {
         console.log(err.message);
@@ -98,7 +101,7 @@ export default function App() {
           {/* {isLoading ? <Spinner /> : <MoviesList movies={movies} />} */}
           {isLoading && <Spinner />}
           {!isLoading && !error && <MoviesList movies={movies} />}
-          {error && < ErrorMessage}
+          {error && <ErrorMessage message={error} />}
         </Box>
         <Box movies={movies}>
           <WatchedSummary watched={watched} />
@@ -171,7 +174,7 @@ function Spinner() {
 
 function ErrorMessage({ message }) {
   return (
-    <p className="Error">
+    <p className="error">
       <span>👾</span> {message}
     </p>
   );
