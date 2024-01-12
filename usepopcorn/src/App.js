@@ -63,7 +63,7 @@ export default function App() {
     fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=interstellar`)
       .then((res) => res.json())
       .then((data) => setMovies(data.Search));
-  }, []);
+  }, []); //empty array means that the effect will only be executed after the component first mount
 
   return (
     <>
