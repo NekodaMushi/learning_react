@@ -2,6 +2,7 @@
 // Split it up into larger components
 
 import { useEffect, useState } from "react";
+import SpinnerSVG from "./Assets/Spinner-1s-200px.svg";
 
 const tempMovieData = [
   {
@@ -81,9 +82,7 @@ export default function App() {
         <NumResult movies={movies} />
       </Navbar>
       <Main>
-        <Box>
-          {isLoading ? <Spinner/> : <MoviesList movies={movies} />}
-        </Box>
+        <Box>{isLoading ? <Spinner /> : <MoviesList movies={movies} />}</Box>
         <Box movies={movies}>
           <WatchedSummary watched={watched} />
           <WatchedMoviesList watched={watched} />
@@ -149,10 +148,8 @@ function Box({ children }) {
   );
 }
 
-function Spinner(){
-  return (
-    
-  )
+function Spinner() {
+  return <img src={SpinnerSVG} alt="Loading..." />;
 }
 
 function MoviesList({ movies }) {
