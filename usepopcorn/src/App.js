@@ -58,10 +58,12 @@ const KEY = "7b15cb43";
 export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const movieSearched = "interstellar";
 
   useEffect(function () {
     async function fetchMovies() {
+      setIsLoading(true);
       const res = await fetch(
         `https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${movieSearched}`
       );
@@ -69,6 +71,7 @@ export default function App() {
       setMovies(data.Search);
     }
     fetchMovies();
+    setIsLoading(false);
   }, []); //empty array means that the effect will only be executed after the component first mount
 
   return (
@@ -79,7 +82,7 @@ export default function App() {
       </Navbar>
       <Main>
         <Box>
-          <MoviesList movies={movies} />
+          {isLoading ? <Spinner/> : <MoviesList movies={movies} />}
         </Box>
         <Box movies={movies}>
           <WatchedSummary watched={watched} />
@@ -144,6 +147,12 @@ function Box({ children }) {
       {isOpen && children}
     </div>
   );
+}
+
+function Spinner(){
+  return (
+    
+  )
 }
 
 function MoviesList({ movies }) {
