@@ -2,7 +2,7 @@
 // Split it up into larger components
 
 import { useEffect, useState } from "react";
-import SpinnerSVG from "./Assets/Spinner-1s-200px.svg";
+import SpinnerSVG from "./Assets/tail-spin.svg";
 
 const tempMovieData = [
   {
