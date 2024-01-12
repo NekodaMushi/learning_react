@@ -54,14 +54,14 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-const KEY = "wdaqdwafsdfeqsad";
-// 7b15cb43
+const KEY = "7b15cb43";
+
 export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const movieSearched = "interstellar";
+  const movieSearched = "frweesFsfefe";
 
   useEffect(function () {
     async function fetchMovies() {
@@ -76,6 +76,8 @@ export default function App() {
         }
 
         const data = await res.json();
+
+        if (data.Response === "False") throw new Error("Movie not found");
 
         console.log(data);
         setMovies(data.Search);
