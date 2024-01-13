@@ -62,8 +62,7 @@ export default function App() {
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const movieSearched = "interstellar";
-
+  const [selectedId, setSelectedId] = useState("tt5295990");
   useEffect(
     function () {
       async function fetchMovies() {
@@ -115,8 +114,10 @@ export default function App() {
           {error && <ErrorMessage message={error} />}
         </Box>
         <Box movies={movies}>
-          <WatchedSummary watched={watched} />
-          <WatchedMoviesList watched={watched} />
+          <>
+            <WatchedSummary watched={watched} />
+            <WatchedMoviesList watched={watched} />
+          </>
         </Box>
       </Main>
     </>
@@ -192,7 +193,7 @@ function ErrorMessage({ message }) {
 
 function MoviesList({ movies }) {
   return (
-    <ul className="list">
+    <ul className="list list-movies">
       {movies?.map((movie) => (
         <MovieMap movie={movie} key={movie.imdbID} />
       ))}
@@ -200,9 +201,9 @@ function MoviesList({ movies }) {
   );
 }
 
-function MovieMap({ movie }) {
+function MovieMap({ movie, setSelectedId }) {
   return (
-    <li>
+    <li onClick={setSelectedId}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
