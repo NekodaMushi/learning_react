@@ -114,10 +114,12 @@ export default function App() {
           {error && <ErrorMessage message={error} />}
         </Box>
         <Box movies={movies}>
-          <>
-            <WatchedSummary watched={watched} />
-            <WatchedMoviesList watched={watched} />
-          </>
+          {
+            <>
+              <WatchedSummary watched={watched} />
+              <WatchedMoviesList watched={watched} />
+            </>
+          }
         </Box>
       </Main>
     </>
@@ -214,6 +216,10 @@ function MovieMap({ movie, setSelectedId }) {
       </div>
     </li>
   );
+}
+
+function MovieDetails({ selectedId }) {
+  return <p>{selectedId}</p>;
 }
 
 function WatchedSummary({ watched }) {
