@@ -69,6 +69,7 @@ export default function App() {
       async function fetchMovies() {
         try {
           setIsLoading(true);
+          setError("");
           const res = await fetch(
             `https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`
           );
@@ -88,7 +89,7 @@ export default function App() {
           setIsLoading(false);
         }
       }
-      fetchMovies();
+      if (query.length > 3) fetchMovies();
       setIsLoading(false);
     },
     [query]
@@ -134,16 +135,13 @@ function Logo() {
 }
 function Search({ query, setQuery }) {
   return (
-    <>
-      <input
-        className="search"
-        type="text"
-        placeholder="Search movies..."
-        value={query}
-        // onChange={(e) => setQuery(e.target.value)}
-      />
-      <button onClick={(e) => setQuery(e.target.value)}></button>
-    </>
+    <input
+      className="search"
+      type="text"
+      placeholder="Search movies..."
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+    />
   );
 }
 function NumResult() {
