@@ -64,37 +64,40 @@ export default function App() {
   const [error, setError] = useState("");
   const movieSearched = "interstellar";
 
-  useEffect(function () {
-    async function fetchMovies() {
-      try {
-        setIsLoading(true);
-        const res = await fetch(
-          `https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${movieSearched}`
-        );
+  useEffect(
+    function () {
+      async function fetchMovies() {
+        try {
+          setIsLoading(true);
+          const res = await fetch(
+            `https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`
+          );
 
-        if (!res.ok) {
-          throw new Error("Something went wrong with fetching movies       ");
+          if (!res.ok) {
+            throw new Error("Something went wrong with fetching movies       ");
+          }
+
+          const data = await res.json();
+          if (data.Response === "False") throw new Error("Movie not found");
+
+          setMovies(data.Search);
+        } catch (err) {
+          console.log(err.message);
+          setError(err.message);
+        } finally {
+          setIsLoading(false);
         }
-
-        const data = await res.json();
-        if (data.Response === "False") throw new Error("Movie not found");
-
-        setMovies(data.Search);
-      } catch (err) {
-        console.log(err.message);
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
       }
-    }
-    fetchMovies();
-    setIsLoading(false);
-  }, []); //empty array means that the effect will only be executed after the component first mount
+      fetchMovies();
+      setIsLoading(false);
+    },
+    [query]
+  ); //empty array means that the effect will only be executed after the component first mount
 
   return (
     <>
       <Navbar>
-        <Search />
+        <Search query={query} setQuery={setQuery} />
         <NumResult movies={movies} />
       </Navbar>
       <Main>
@@ -131,13 +134,16 @@ function Logo() {
 }
 function Search({ query, setQuery }) {
   return (
-    <input
-      className="search"
-      type="text"
-      placeholder="Search movies..."
-      value={query}
-      onChange={(e) => setQuery(e.target.value)}
-    />
+    <>
+      <input
+        className="search"
+        type="text"
+        placeholder="Search movies..."
+        value={query}
+        // onChange={(e) => setQuery(e.target.value)}
+      />
+      <button onClick={(e) => setQuery(e.target.value)}></button>
+    </>
   );
 }
 function NumResult() {
