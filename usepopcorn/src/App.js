@@ -89,8 +89,13 @@ export default function App() {
           setIsLoading(false);
         }
       }
-      if (query.length > 3) fetchMovies();
-      setIsLoading(false);
+      // if (query.length > 3) fetchMovies();
+
+      if (query.length < 3) {
+        setMovies([]);
+        setError("");
+        return;
+      } // Best practice
     },
     [query]
   ); //empty array means that the effect will only be executed after the component first mount
