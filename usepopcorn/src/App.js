@@ -96,6 +96,7 @@ export default function App() {
         setError("");
         return;
       } // Best practice
+      fetchMovies();
     },
     [query]
   ); //empty array means that the effect will only be executed after the component first mount
