@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import SpinnerSVG from "./Assets/tail-spin.svg";
+import StarRating from "./StarRating";
 
 const tempMovieData = [
   {
@@ -245,7 +246,7 @@ function MovieDetails({ selectedId, onCloseMovie }) {
     Title: title,
     Poster: poster,
     Year: year,
-    Realeased: released,
+    Released: released,
     Runtime: length,
     Actors: actors,
     Director: director,
@@ -276,7 +277,26 @@ function MovieDetails({ selectedId, onCloseMovie }) {
           &larr;
         </button>
         <img src={poster} alt={`Poster of ${movie} movie`} />
+        <div className="details-overview">
+          <h2>{title}</h2>
+          <p>
+            {released} &bull; {length}
+          </p>
+          <p>{genre}</p>
+          <p>
+            <span>🌟</span>
+            {imdbRating} IMDb rating
+          </p>
+        </div>
       </header>
+      <section>
+        <StarRating />
+        <p>
+          <em>{plot}</em>
+        </p>
+        <p> Starring {actors}</p>
+        <p>Directed by {director}</p>
+      </section>
     </div>
   );
 }
