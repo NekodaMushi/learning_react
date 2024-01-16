@@ -225,12 +225,17 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       poster,
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
+      userRating,
     };
 
-    if (!watched.some((newMovie) => newMovie.imdbID === newWatchedMovie.imdbID))
-      onAddWatched(newWatchedMovie);
+    if (userRating) {
+      if (
+        !watched.some((newMovie) => newMovie.imdbID === newWatchedMovie.imdbID)
+      )
+        onAddWatched(newWatchedMovie);
 
-    onCloseMovie();
+      onCloseMovie();
+    }
   }
 
   useEffect(
