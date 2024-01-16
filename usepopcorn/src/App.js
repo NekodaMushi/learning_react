@@ -30,6 +30,10 @@ export default function App() {
     setWatched((watched) => [...watched, movie]);
   }
 
+  function handleRemoveWatched(id) {
+    setWatched((watched) => watched.filter());
+  }
+
   useEffect(
     function () {
       async function fetchMovies() {
@@ -203,6 +207,12 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
 
+  // Option 2 to avoid watched movie doublon
+  const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
+  const watchedUserrating = watched.find(
+    (movie) => movie.imdbID === selectedId
+  )?.userRating;
+
   const {
     Title: title,
     Poster: poster,
@@ -228,9 +238,10 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       userRating,
     };
 
-    if (!watched.some((newMovie) => newMovie.imdbID === newWatchedMovie.imdbID))
-      onAddWatched(newWatchedMovie);
-
+    // Option 1 to avoid watched movie doublon
+    // if (!watched.some((newMovie) => newMovie.imdbID === newWatchedMovie.imdbID))
+    //   onAddWatched(newWatchedMovie);
+    onAddWatched(newWatchedMovie);
     onCloseMovie();
   }
 
@@ -275,15 +286,21 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
           </header>
           <section>
             <div className="rating">
-              <StarRating
-                maxRating={10}
-                size={24}
-                onSetRating={setUserRating}
-              />
-              {userRating > 0 && (
-                <button className="btn-add" onClick={handleAdd}>
-                  + Add to list
-                </button>
+              {!isWatched ? (
+                <>
+                  <StarRating
+                    maxRating={10}
+                    size={24}
+                    onSetRating={setUserRating}
+                  />
+                  {userRating > 0 && (
+                    <button className="btn-add" onClick={handleAdd}>
+                      + Add to list
+                    </button>
+                  )}
+                </>
+              ) : (
+                <p>You rated with move {watchedUserrating}</p>
               )}
             </div>
             <p>
