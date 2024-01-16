@@ -238,8 +238,25 @@ function MovieMap({ movie, onSelectMovie }) {
   );
 }
 
-function MovieDetails({ selectedId }) {
-  return <p>{selectedId}</p>;
+function MovieDetails({ selectedId, onCloseMovie }) {
+  useEffect(function () {
+    async function getMovieDetails() {
+      const res = await fetch(
+        `https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&i=${selectedId}`
+      );
+      const data = await res.json();
+      console.log(data);
+    }
+  });
+
+  return (
+    <div className="details">
+      <button className="btn-back" onClick={onCloseMovie}>
+        &larr;
+      </button>
+      {selectedId}
+    </div>
+  );
 }
 
 function WatchedSummary({ watched }) {
