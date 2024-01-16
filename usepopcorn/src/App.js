@@ -87,7 +87,7 @@ export default function App() {
             <MovieDetails
               selectedId={selectedId}
               onCloseMovie={handleCloseMovie}
-              onWatchedMovie={setWatched}
+              onAddWatched={handleAddWatched}
             />
           ) : (
             <>
@@ -197,7 +197,7 @@ function MovieMap({ movie, onSelectMovie }) {
   );
 }
 
-function MovieDetails({ selectedId, onCloseMovie }) {
+function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -214,6 +214,12 @@ function MovieDetails({ selectedId, onCloseMovie }) {
 
     imdbRating,
   } = movie;
+
+  function handleAdd() {
+    const newWatchedMovie = {
+      imdbRating: selectedId,
+    };
+  }
 
   useEffect(
     function () {
