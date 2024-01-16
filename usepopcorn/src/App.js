@@ -206,7 +206,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
     Poster: poster,
 
     Released: released,
-    Runtime: length,
+    Runtime: runtime,
     Actors: actors,
     Director: director,
     Genre: genre,
@@ -217,7 +217,12 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
 
   function handleAdd() {
     const newWatchedMovie = {
-      imdbRating: selectedId,
+      imdbID: selectedId,
+      title,
+      released,
+      poster,
+      imdbRating: Number(imdbRating),
+      runtime: Number(runtime.split(" ").at(0)),
     };
 
     onAddWatched(newWatchedMovie);
@@ -253,11 +258,11 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
             <div className="details-overview">
               <h2>{title}</h2>
               <p>
-                {released} &bull; {length}
+                {released} &bull; {runtime}
               </p>
               <p>{genre}</p>
               <p>
-                <span>🌟</span>
+                <span>⭐</span>
                 {imdbRating} IMDb rating
               </p>
             </div>
@@ -265,7 +270,9 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
           <section>
             <div className="rating">
               <StarRating maxRating={10} size={24} />
-              <button className="btn-add">+ Add to list</button>
+              <button className="btn-add" onClick={handleAdd}>
+                + Add to list
+              </button>
             </div>
             <p>
               <em>{plot}</em>

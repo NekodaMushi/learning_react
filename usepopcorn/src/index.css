@@ -381,11 +381,11 @@ EMPTY STAR
 */
 
 .spinner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* margin: 50%; */
-  /* margin-top: 75%;
-  margin-left: 47%; */
-  height: 100%;
+  display: block;
+  /* justify-content: center;
+  align-items: center; */
+  margin: 50%;
+  /* margin-right: 60%;
+  margin-top: 50%; */
+  /* margin-left: 47%; */
 }
