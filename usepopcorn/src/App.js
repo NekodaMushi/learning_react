@@ -239,6 +239,22 @@ function MovieMap({ movie, onSelectMovie }) {
 }
 
 function MovieDetails({ selectedId, onCloseMovie }) {
+  const [movie, setMovie] = useState({});
+
+  const {
+    Title: title,
+    Poster: poster,
+    Year: year,
+    Realeased: released,
+    Runtime: length,
+    Actors: actors,
+    Director: director,
+    Genre: genre,
+    Plot: plot,
+    Metascore: metascore,
+    imdbRating,
+  } = movie;
+
   useEffect(
     function () {
       async function getMovieDetails() {
@@ -246,7 +262,7 @@ function MovieDetails({ selectedId, onCloseMovie }) {
           `https://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`
         );
         const data = await res.json();
-        console.log(data);
+        setMovie(data);
       }
       getMovieDetails();
     },
@@ -255,10 +271,12 @@ function MovieDetails({ selectedId, onCloseMovie }) {
 
   return (
     <div className="details">
-      <button className="btn-back" onClick={onCloseMovie}>
-        &larr;
-      </button>
-      {selectedId}
+      <header>
+        <button className="btn-back" onClick={onCloseMovie}>
+          &larr;
+        </button>
+        <img src={poster} alt={`Poster of ${movie} movie`} />
+      </header>
     </div>
   );
 }
