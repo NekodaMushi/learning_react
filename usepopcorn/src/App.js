@@ -245,14 +245,14 @@ function MovieDetails({ selectedId, onCloseMovie }) {
   const {
     Title: title,
     Poster: poster,
-    Year: year,
+
     Released: released,
     Runtime: length,
     Actors: actors,
     Director: director,
     Genre: genre,
     Plot: plot,
-    Metascore: metascore,
+
     imdbRating,
   } = movie;
 
@@ -290,7 +290,7 @@ function MovieDetails({ selectedId, onCloseMovie }) {
         </div>
       </header>
       <section>
-        <StarRating />
+        <StarRating maxRating={10} size={24} />
         <p>
           <em>{plot}</em>
         </p>

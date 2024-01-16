@@ -19,7 +19,7 @@ StarRating.propTypes = {
   size: Proptypes.number,
   message: Proptypes.array,
   defaultRating: Proptypes.number,
-  // onSetRating: Proptypes.func,
+  // onSetRating
 };
 
 export default function StarRating({
@@ -28,14 +28,14 @@ export default function StarRating({
   size = 48,
   message = [],
   defaultRating = 0,
-  onSetRating,
+  // onSetRating = 0,
 }) {
   const [rating, setRating] = useState(defaultRating);
   const [tempRating, setTempRating] = useState(1);
 
   function handleRate(rate) {
     setRating(rate);
-    onSetRating(rate);
+    // onSetRating(rate);
   }
 
   const textStyle = {
