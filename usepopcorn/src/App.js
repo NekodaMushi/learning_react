@@ -226,9 +226,8 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       runtime: Number(runtime.split(" ").at(0)),
     };
 
-    if (!watched.include(newWatchedMovie)) {
+    if (!watched.some((newMovie) => newMovie.imdbID === newWatchedMovie.imdbID))
       onAddWatched(newWatchedMovie);
-    }
 
     onCloseMovie();
   }
