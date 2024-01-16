@@ -79,7 +79,7 @@ export default function App() {
           setIsLoading(true);
           setError("");
           const res = await fetch(
-            `https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`
+            `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
           );
 
           if (!res.ok) {
@@ -239,15 +239,19 @@ function MovieMap({ movie, onSelectMovie }) {
 }
 
 function MovieDetails({ selectedId, onCloseMovie }) {
-  useEffect(function () {
-    async function getMovieDetails() {
-      const res = await fetch(
-        `https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&i=${selectedId}`
-      );
-      const data = await res.json();
-      console.log(data);
-    }
-  });
+  useEffect(
+    function () {
+      async function getMovieDetails() {
+        const res = await fetch(
+          `https://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`
+        );
+        const data = await res.json();
+        console.log(data);
+      }
+      getMovieDetails();
+    },
+    [selectedId]
+  );
 
   return (
     <div className="details">
