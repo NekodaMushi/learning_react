@@ -219,6 +219,8 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
     const newWatchedMovie = {
       imdbRating: selectedId,
     };
+
+    onAddWatched(newWatchedMovie);
   }
 
   useEffect(
@@ -230,17 +232,17 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
         );
         const data = await res.json();
         setMovie(data);
+        setIsLoading(false);
       }
       getMovieDetails();
-      setIsLoading(false);
     },
     [selectedId]
   );
 
   return (
     <div className="details">
-      {isLoading === true ? (
-        { Spinner }
+      {isLoading ? (
+        <Spinner />
       ) : (
         <>
           <header>
