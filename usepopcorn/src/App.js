@@ -88,6 +88,7 @@ export default function App() {
               selectedId={selectedId}
               onCloseMovie={handleCloseMovie}
               onAddWatched={handleAddWatched}
+              watched={watched}
             />
           ) : (
             <>
@@ -128,10 +129,10 @@ function Search({ query, setQuery }) {
     />
   );
 }
-function NumResult() {
+function NumResult({ movies }) {
   return (
     <p className="num-results">
-      Found <strong>X</strong> results
+      Found <strong>{movies.length}</strong> results
     </p>
   );
 }
@@ -197,7 +198,7 @@ function MovieMap({ movie, onSelectMovie }) {
   );
 }
 
-function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
+function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -225,7 +226,11 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
       runtime: Number(runtime.split(" ").at(0)),
     };
 
-    onAddWatched(newWatchedMovie);
+    if (!watched.include(newWatchedMovie)) {
+      onAddWatched(newWatchedMovie);
+    }
+
+    onCloseMovie();
   }
 
   useEffect(
@@ -320,8 +325,8 @@ function WatchedMoviesList({ watched }) {
     <ul className="list">
       {watched.map((movie) => (
         <li key={movie.imdbID}>
-          <img src={movie.Poster} alt={`${movie.Title} poster`} />
-          <h3>{movie.Title}</h3>
+          <img src={movie.poster} alt={`${movie.Title} poster`} />
+          <h3>{movie.title}</h3>
           <div>
             <p>
               <span>⭐️</span>
