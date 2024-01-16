@@ -31,7 +31,7 @@ export default function App() {
   }
 
   function handleRemoveWatched(id) {
-    setWatched((watched) => watched.filter());
+    setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
 
   useEffect(
@@ -97,7 +97,10 @@ export default function App() {
           ) : (
             <>
               <WatchedSummary watched={watched} />
-              <WatchedMoviesList watched={watched} />
+              <WatchedMoviesList
+                watched={watched}
+                onDeleteWatchedMovie={handleRemoveWatched}
+              />
             </>
           )}
         </Box>
@@ -348,7 +351,7 @@ function WatchedSummary({ watched }) {
   );
 }
 
-function WatchedMoviesList({ watched }) {
+function WatchedMoviesList({ watched, onDeleteWatchedMovie }) {
   return (
     <ul className="list">
       {watched.map((movie) => (
@@ -368,6 +371,12 @@ function WatchedMoviesList({ watched }) {
               <span>⏳</span>
               <span>{movie.runtime} min</span>
             </p>
+            <button
+              className="btn-delete"
+              onClick={() => onDeleteWatchedMovie(movie.imdbID)}
+            >
+              X
+            </button>
           </div>
         </li>
       ))}
