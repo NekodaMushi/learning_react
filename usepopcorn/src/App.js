@@ -251,8 +251,6 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       userRating,
     };
 
-    if (imdbRating > 8) return <p>Great Movie</p>;
-
     // Option 1 to avoid watched movie doublon
     // if (!watched.some((newMovie) => newMovie.imdbID === newWatchedMovie.imdbID))
     //   onAddWatched(newWatchedMovie);
