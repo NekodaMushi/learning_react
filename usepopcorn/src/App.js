@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import SpinnerSVG from "./Assets/tail-spin.svg";
 import StarRating from "./StarRating";
 import { useMovies } from "./Components/useMovies";
+import { KEY } from "./Components/useMovies";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -12,7 +13,7 @@ const average = (arr) =>
 export default function App() {
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
-  const { movies, isLoading, error } = useMovies(query);
+  const { movies, isLoading, error } = useMovies(query, handleCloseMovie);
 
   const [watched, setWatched] = useState(function () {
     const storedValue = localStorage.getItem("watched");
