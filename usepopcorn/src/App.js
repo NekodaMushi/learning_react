@@ -1,7 +1,7 @@
 // Got this from teammate, task:
 // Split it up into larger components
 
-import { useEffect, useInsertionEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SpinnerSVG from "./Assets/tail-spin.svg";
 import StarRating from "./StarRating";
 
@@ -155,6 +155,13 @@ function Search({ query, setQuery }) {
   //   el.focus();
   // }, []);
 
+  // React is declarative
+  const inputEl = useRef(null);
+
+  useEffect(function () {
+    inputEl.current.focus();
+  }, []);
+
   return (
     <input
       className="search"
@@ -162,6 +169,7 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      ref={inputEl}
     />
   );
 }
