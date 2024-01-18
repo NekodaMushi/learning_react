@@ -149,10 +149,12 @@ function Logo() {
   );
 }
 function Search({ query, setQuery }) {
-  useEffect(function () {
-    const el = document.querySelector(".search");
-    el.focus();
-  }, []);
+  // select Dom with useEffect isn't the React way to proceed
+  // useEffect(function () {
+  //   const el = document.querySelector(".search");
+  //   el.focus();
+  // }, []);
+
   return (
     <input
       className="search"
