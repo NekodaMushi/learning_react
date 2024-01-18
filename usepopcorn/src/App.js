@@ -263,14 +263,12 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   const [userRating, setUserRating] = useState("");
 
   const countRef = useRef(0);
-  let count = 0;
 
   useEffect(
     function () {
       if (userRating) countRef.current++;
-      if (userRating) count++;
     },
-    [userRating, count]
+    [userRating]
   );
 
   // Option 2 to avoid watched movie doublon
