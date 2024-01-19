@@ -20,7 +20,6 @@ export default function App() {
   //   const storedValue = localStorage.getItem("watched");
   //   return JSON.parse(storedValue);
   // });
-
   const [watched, setWatched] = useLocalStorage([], "watched");
 
   function handleSelectMovie(id) {
@@ -40,6 +39,13 @@ export default function App() {
   function handleRemoveWatched(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
+
+  // useEffect(
+  //   function () {
+  //     localStorage.setItem("watched", JSON.stringify(watched));
+  //   },
+  //   [watched]
+  // );
 
   return (
     <>
