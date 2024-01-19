@@ -6,6 +6,7 @@ import SpinnerSVG from "./Assets/tail-spin.svg";
 import StarRating from "./StarRating";
 import { useMovies } from "./Components/useMovies";
 import { KEY } from "./Components/useMovies";
+import { useLocalStorage } from "./Components/useLocaLStorage";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -15,10 +16,12 @@ export default function App() {
   const [selectedId, setSelectedId] = useState(null);
   const { movies, isLoading, error } = useMovies(query, handleCloseMovie);
 
-  const [watched, setWatched] = useState(function () {
-    const storedValue = localStorage.getItem("watched");
-    return JSON.parse(storedValue);
-  });
+  // const [watched, setWatched] = useState(function () {
+  //   const storedValue = localStorage.getItem("watched");
+  //   return JSON.parse(storedValue);
+  // });
+
+  const [watched, setWatched] = useLocalStorage([], "watched");
 
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (selectedId === id ? null : id));
@@ -37,13 +40,6 @@ export default function App() {
   function handleRemoveWatched(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
-
-  useEffect(
-    function () {
-      localStorage.setItem("watched", JSON.stringify(watched));
-    },
-    [watched]
-  );
 
   return (
     <>
