@@ -4,7 +4,7 @@ function reducer(state, action) {
   console.log(state, action);
   // if (action.type === "inc") return state + 1;
   // if (action.type === "dec") return state - action.payload; // state - 1 is alright as well
-  return { count: 0, step: 1 };
+  // return { count: 0, step: 1 };
 
   switch (action.type) {
     case "dec":
