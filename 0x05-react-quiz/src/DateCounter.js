@@ -4,6 +4,7 @@ const ACTION = {
   DECREMENT: "dec",
   INCREMENT: "inc",
   SETTING_COUNT: "setCount",
+  SETTING_STEP: "setStep",
 };
 
 function reducer(state, action) {
@@ -20,7 +21,10 @@ function reducer(state, action) {
     case ACTION.INCREMENT:
       return { ...state, count: state.count + 1 };
     case ACTION.SETTING_COUNT:
-      return { ...state,  action.payload };
+      return { ...state, count: action.payload };
+    case ACTION.SETTING_STEP:
+      return { ...state, step: action.payload };
+
     default:
       throw new Error("Unknown Error");
   }
@@ -56,10 +60,12 @@ function DateCounter() {
 
   const defineStep = function (e) {
     // setStep(Number(e.target.value));
+    dispatch({ type: "setStep", payload: Number(e.target.value) });
   };
 
   const reset = function () {
     dispatch({ type: "setCount", payload: 0 });
+    dispatch({ type: "setStep", payload: 0 });
     // setStep(1);
   };
 
