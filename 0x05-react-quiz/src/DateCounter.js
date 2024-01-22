@@ -18,9 +18,9 @@ function reducer(state, action) {
         count: state.count - state.step,
       };
     case ACTION.INCREMENT:
-      return { ...state, count: state.count + 1};
+      return { ...state, count: state.count + 1 };
     case ACTION.SETTING_COUNT:
-      return { ...state, count: }
+      return { ...state,  action.payload };
     default:
       throw new Error("Unknown Error");
   }
