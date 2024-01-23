@@ -9,6 +9,25 @@ const ACTION = {
 
 function reducer(state, action) {
   console.log(state, action);
+  switch (action.type) {
+    case ACTION.DECREMENT:
+      return {
+        ...state,
+        count: state.count - 1,
+      };
+    case ACTION.INCREMENT:
+      return {
+        ...state,
+        count: state.count + 1,
+      };
+    case ACTION.SETTING_COUNT:
+      return {
+        ...state,
+        count: action.payload,
+      };
+    default:
+      throw new Error("ERROR");
+  }
   // if (action.type === "inc") return state + 1;
   // if (action.type === "dec") return state - action.payload; // state - 1 is alright as well
   // if (action.type === "setCount") return action.payload;
@@ -26,21 +45,24 @@ function DateCounter() {
   date.setDate(date.getDate() + count);
 
   const dec = function () {
-    dispatch({ type: "dec", payload: 1 });
+    dispatch({ type: ACTION.DECREMENT, payload: 1 });
     // setCount((count) => count - 1);
     // setCount((count) => count - step);
   };
 
   const inc = function () {
+    dispatch({ type: ACTION.INCREMENT, payload: 1 });
     // setCount((count) => count + 1);
     // setCount((count) => count + step);
   };
 
   const defineCount = function (e) {
+    dispatch({ type: ACTION.SETTING_COUNT, payload: Number(e.target.value) });
     // setCount(Number(e.target.value));
   };
 
   const defineStep = function (e) {
+    dispatch({ type: ACTION.SETTING_STEP, payload: Number(e.target.value) });
     // setStep(Number(e.target.value));
   };
 
