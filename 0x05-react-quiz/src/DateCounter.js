@@ -5,26 +5,36 @@ const ACTION = {
   INCREMENT: "inc",
   SETTING_COUNT: "setCount",
   SETTING_STEP: "setStep",
-};
 
+  RESET: "setInitial",
+};
+const initialState = { count: 0, step: 1 };
 function reducer(state, action) {
   console.log(state, action);
   switch (action.type) {
     case ACTION.DECREMENT:
       return {
         ...state,
-        count: state.count - 1,
+        count: state.count - state.step,
       };
     case ACTION.INCREMENT:
       return {
         ...state,
-        count: state.count + 1,
+        count: state.count + state.step,
       };
     case ACTION.SETTING_COUNT:
       return {
         ...state,
         count: action.payload,
       };
+    case ACTION.SETTING_STEP:
+      return {
+        ...state,
+        step: action.payload,
+      };
+    case ACTION.RESET:
+      return initialState;
+
     default:
       throw new Error("ERROR");
   }
@@ -36,7 +46,7 @@ function reducer(state, action) {
 function DateCounter() {
   // const [count, setCount] = useState(0);
   // const [step, setStep] = useState(1);
-  const initialState = { count: 0, step: 1 };
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const { count, step } = state;
 
@@ -68,6 +78,7 @@ function DateCounter() {
 
   const reset = function () {
     // setStep(1);
+    dispatch({ type: ACTION.RESET });
   };
 
   return (
@@ -85,7 +96,7 @@ function DateCounter() {
 
       <div>
         <button onClick={dec}>-</button>
-        <input value={count} onChange={defineCount} />
+        <input value={count} type="number" onChange={defineCount} />
         <button onClick={inc}>+</button>
       </div>
 
