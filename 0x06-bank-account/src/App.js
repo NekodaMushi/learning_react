@@ -5,9 +5,24 @@ const initialState = {
   balance: 0,
   loan: 0,
   isActive: false,
+  status: "ready",
 };
 
-function reducer(state, action) {}
+const ACTION = {
+  READY: "ready",
+  RUNNING: "running",
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case ACTION.READY:
+      return {
+        ...state,
+      };
+    default:
+      throw new Error("Unknown Error");
+  }
+}
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
