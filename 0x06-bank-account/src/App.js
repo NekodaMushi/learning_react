@@ -8,17 +8,22 @@ const initialState = {
   // status: "ready",
 };
 
-const ACTION = {
-  READY: "ready",
-  RUNNING: "running",
-};
+// const ACTION = {
+//   READY: "ready",
+//   RUNNING: "running",
+// };
 
 function reducer(state, action) {
   switch (action.type) {
-    case ACTION.READY:
+    case "openAccount":
       return {
         ...state,
         isActive: true,
+      };
+    case "deposit":
+      return {
+        ...state,
+        isActive,
       };
     default:
       throw new Error("Unknown Error");
@@ -26,7 +31,10 @@ function reducer(state, action) {
 }
 
 export default function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [{ balance, loan, isActive }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
   return (
     <div className="App">
       <h1>useReducer Bank Account</h1>
@@ -34,7 +42,10 @@ export default function App() {
       <p>Loan: X</p>
 
       <p>
-        <button onClick={() => {}} disabled={false}>
+        <button
+        // onClick={() => dispatch({ type:  })}
+        // disabled={!isActive}
+        >
           Open account
         </button>
       </p>
