@@ -35,19 +35,26 @@ function reducer(state, action) {
         balance: Math.max(state.balance - 50, 0),
       };
     case ACTION.REQUEST_LOAN:
+      if (state.activeLoan) {
+        return state;
+      }
       return {
         ...state,
         activeLoan: true,
-        balance: !state.activeLoan || state.balance + 5000,
-        loan: !state.activeLoan || state.loan + 5000,
+        balance: state.balance + 5000,
+        loan: state.loan + 5000,
       };
     case ACTION.PAY_LOAN:
+      if (state.activeLoan === false) {
+        return state;
+      }
       return {
         ...state,
-        balance: state.balance >= 5000 && state.balance - 5000,
-        loan: state.balance >= 5000 && state.loan - 5000,
-        // activeLoan: false,
+        balance: state.balance - 5000,
+        loan: state.loan - 5000,
+        activeLoan: false,
       };
+
     case ACTION.ClOSE_ACCOUNT:
       return {
         ...state,
