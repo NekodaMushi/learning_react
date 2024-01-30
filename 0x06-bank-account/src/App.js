@@ -45,7 +45,7 @@ function reducer(state, action) {
         loan: state.loan + action.payload,
       };
     case ACTION.PAY_LOAN:
-      if (state.balance <= 5000 && state.activeLoan === false) {
+      if (state.balance < action.payload || state.activeLoan === false) {
         return state;
       }
       return {
@@ -90,7 +90,8 @@ export default function App() {
           onClick={() => dispatch({ type: ACTION.DEPOSIT, payload: 150 })}
           disabled={!isActive}
         >
-          Deposit 150
+          <input></input>
+          Deposit
         </button>
       </p>
       <p>
