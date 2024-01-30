@@ -5,7 +5,7 @@ const initialState = {
   balance: 0,
   loan: 0,
   isActive: false,
-  // activeLoan: false,
+  activeLoan: false,
 };
 
 const ACTION = {
@@ -32,14 +32,14 @@ function reducer(state, action) {
     case ACTION.WITHDRAW:
       return {
         ...state,
-        balance: state.balance >= 50 ?? state.balance - 50,
+        balance: Math.max(state.balance - 50, 0),
       };
     case ACTION.REQUEST_LOAN:
       return {
         ...state,
-        balance: state.loan === 0 ?? state.balance + 5000,
-        loan: state.loan === 0 ?? state.loan + 5000,
-        // activeLoan: true, // check logic for only one loan
+        activeLoan: true,
+        balance: !state.activeLoan || state.balance + 5000,
+        loan: !state.activeLoan || state.loan + 5000,
       };
     case ACTION.PAY_LOAN:
       return {
