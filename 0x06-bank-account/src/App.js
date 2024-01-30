@@ -76,9 +76,9 @@ export default function App() {
     initialState
   );
 
-  const [depositAmount, setDepositAmount] = useState();
-  const [withdrawAmount, setWithdrawAmount] = useState();
-  const [loanAmount, setLoanAmount] = useState();
+  const [depositAmount, setDepositAmount] = useState(0);
+  const [withdrawAmount, setWithdrawAmount] = useState(0);
+  const [loanAmount, setLoanAmount] = useState(0);
   return (
     <div className="App">
       <h1>useReducer Bank Account</h1>
@@ -98,6 +98,7 @@ export default function App() {
           type="number"
           value={depositAmount}
           onChange={(e) => setDepositAmount(Number(e.target.value))}
+          disabled={!isActive}
         ></input>
         <button
           onClick={() =>
@@ -113,6 +114,7 @@ export default function App() {
           type="number"
           value={withdrawAmount}
           onChange={(e) => setWithdrawAmount(Number(e.target.value))}
+          disabled={!isActive}
         ></input>
         <button
           onClick={() =>
@@ -128,23 +130,22 @@ export default function App() {
           type="number"
           value={loanAmount}
           onChange={(e) => setLoanAmount(Number(e.target.value))}
+          disabled={!isActive}
         ></input>
         <button
           onClick={() => {
             dispatch({ type: ACTION.REQUEST_LOAN, payload: loanAmount });
-            setLoanAmount("");
           }}
           disabled={!isActive}
         >
-          Request a loan of 5000
+          Request a loan
         </button>
       </p>
       <p>
         <button
-          onClick={() => {
-            dispatch({ type: ACTION.PAY_LOAN, payload: loanAmount });
-            setLoanAmount(0);
-          }}
+          onClick={() =>
+            dispatch({ type: ACTION.PAY_LOAN, payload: loanAmount })
+          }
           disabled={!isActive}
         >
           Pay loan
