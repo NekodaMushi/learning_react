@@ -45,7 +45,7 @@ function reducer(state, action) {
         loan: state.loan + 5000,
       };
     case ACTION.PAY_LOAN:
-      if (state.activeLoan === false) {
+      if (state.activeLoan === false && state.balance <= 5000) {
         return state;
       }
       return {
@@ -59,7 +59,7 @@ function reducer(state, action) {
       return {
         ...state,
         isActive:
-          state.balance === 0 && state.activeLoan === false ? true : false,
+          state.balance === 0 && state.activeLoan === false ? false : true,
       };
     default:
       throw new Error("Unknown Error");
