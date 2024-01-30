@@ -39,7 +39,22 @@ function reducer(state, action) {
         ...state,
         balance: state.balance + 5000,
         loan: state.loan + 5000,
-        activeLoan: true,
+        activeLoan: true, // check logic for only one loan
+      };
+    case ACTION.PAY_LOAN:
+      return {
+        ...state,
+        balance: state.balance >= 5000 && state.balance - 5000,
+        loan: state.balance >= 5000 && state.loan - 5000,
+        activeLoan: false,
+      };
+    case ACTION.ClOSE_ACCOUNT:
+      return {
+        ...state,
+        isActive:
+          state.balance === 0 && state.activeLoan === false
+            ? false
+            : state.isActive,
       };
     default:
       throw new Error("Unknown Error");
@@ -54,11 +69,14 @@ export default function App() {
   return (
     <div className="App">
       <h1>useReducer Bank Account</h1>
-      <p>Balance: X</p>
-      <p>Loan: X</p>
+      <p>Balance: {balance}</p>
+      <p>Loan: {loan}</p>
 
       <p>
-        <button onClick={() => {}} disabled={false}>
+        <button
+          onClick={() => dispatch({ type: ACTION.OPEN_ACCOUNT })}
+          disabled={isActive}
+        >
           Open account
         </button>
       </p>
