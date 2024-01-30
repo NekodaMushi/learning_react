@@ -16,6 +16,7 @@ const ACTION = {
   REQUEST_LOAN: "requestLoan",
   PAY_LOAN: "payLoan",
   ClOSE_ACCOUNT: "CloseAccount",
+  UPDATE_DEPOSIT_AMOUNT: "depositUpdate",
 };
 
 function reducer(state, action) {
@@ -28,8 +29,12 @@ function reducer(state, action) {
     case ACTION.DEPOSIT:
       return {
         ...state,
-        balance: state.balance + action.payload,
-        depositAmount: state.depositAmount,
+        balance: state.balance + action.payload.depositAmount,
+      };
+    case ACTION.UPDATE_DEPOSIT_AMOUNT:
+      return {
+        ...state,
+        depositAmount: action.payload,
       };
     case ACTION.WITHDRAW:
       return {
@@ -73,6 +78,10 @@ export default function App() {
     reducer,
     initialState
   );
+
+  const handleDepositChange = (e) => {
+    dispatch({ type: "UPDATE_DEPOSIT_AMOUNT", payload: e.target.value });
+  };
   return (
     <div className="App">
       <h1>useReducer Bank Account</h1>
@@ -88,17 +97,17 @@ export default function App() {
         </button>
       </p>
       <p>
+        <input
+          type="number"
+          value={depositAmount}
+          onChange={handleDepositChange}
+        ></input>
         <button
           onClick={() =>
-            dispatch({ type: ACTION.DEPOSIT, payload: { depositAmount } })
+            dispatch({ type: ACTION.DEPOSIT, payload: depositAmount })
           }
           disabled={!isActive}
         >
-          <input
-            type="number"
-            value={depositAmount}
-            onChange={(e) => e.target.value}
-          ></input>
           Deposit
         </button>
       </p>
