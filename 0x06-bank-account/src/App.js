@@ -60,11 +60,13 @@ function reducer(state, action) {
       };
 
     case ACTION.ClOSE_ACCOUNT:
-      return {
-        ...state,
-        isActive:
-          state.balance === 0 && state.activeLoan === false ? false : true,
-      };
+      // return {
+      //   ...state,
+      //   isActive:
+      //     state.balance === 0 && state.activeLoan === false ? false : true,
+      // }; //better way to do it bellow:
+      if (state.loan > 0 || state.balance !== 0) return state;
+      return initialState;
     default:
       throw new Error("Unknown Error");
   }
@@ -79,6 +81,13 @@ export default function App() {
   const [depositAmount, setDepositAmount] = useState(0);
   const [withdrawAmount, setWithdrawAmount] = useState(0);
   const [loanAmount, setLoanAmount] = useState(0);
+
+  function handleCloseAccount() {
+    dispatch({ type: ACTION.ClOSE_ACCOUNT });
+    setDepositAmount(0);
+    setWithdrawAmount(0);
+    setLoanAmount(0);
+  }
   return (
     <div className="App">
       <h1>useReducer Bank Account</h1>
@@ -134,7 +143,9 @@ export default function App() {
         ></input>
         <button
           onClick={() => {
-            dispatch({ type: ACTION.REQUEST_LOAN, payload: loanAmount });
+            if (loanAmount > 0) {
+              dispatch({ type: ACTION.REQUEST_LOAN, payload: loanAmount });
+            }
           }}
           disabled={!isActive}
         >
@@ -153,8 +164,9 @@ export default function App() {
       </p>
       <p>
         <button
-          onClick={() => dispatch({ type: ACTION.ClOSE_ACCOUNT })}
-          disabled={!isActive}
+          onClick={() => {
+            handleCloseAccount();
+          }}
         >
           Close account
         </button>
