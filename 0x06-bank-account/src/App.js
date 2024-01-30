@@ -167,6 +167,7 @@ export default function App() {
           onClick={() => {
             handleCloseAccount();
           }}
+          disabled={!isActive}
         >
           Close account
         </button>
