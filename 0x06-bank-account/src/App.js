@@ -21,10 +21,13 @@ function reducer(state, action) {
     case ACTION.OPEN_ACCOUNT:
       return {
         ...state,
-        isActive: false,
+        isActive: true,
       };
     case ACTION.DEPOSIT:
-      return {};
+      return {
+        ...state,
+        balance: state.balance + 150,
+      };
     case ACTION.WITHDRAW:
       return {};
     case ACTION.REQUEST_LOAN:
@@ -32,7 +35,10 @@ function reducer(state, action) {
     case ACTION.PAY_LOAN:
       return {};
     case ACTION.ClOSE_ACCOUNT:
-      return {};
+      return {
+        ...state,
+        isActive: false,
+      };
     default:
       throw new Error("Unknown Error");
   }
@@ -51,14 +57,17 @@ export default function App() {
 
       <p>
         <button
-          onClick={() => dispatch({ type: "openAccount" })}
+          onClick={() => dispatch({ type: ACTION.OPEN_ACCOUNT })}
           disabled={isActive}
         >
           Open account
         </button>
       </p>
       <p>
-        <button onClick={() => {}} disabled={!isActive}>
+        <button
+          onClick={() => dispatch({ type: ACTION.DEPOSIT })}
+          disabled={!isActive}
+        >
           Deposit 150
         </button>
       </p>
@@ -78,7 +87,12 @@ export default function App() {
         </button>
       </p>
       <p>
-        <button onClick={() => {}} disabled={!isActive}>
+        <button
+          onClick={() =>
+            balance === 0 && dispatch({ type: ACTION.ClOSE_ACCOUNT })
+          }
+          disabled={!isActive}
+        >
           Close account
         </button>
       </p>
