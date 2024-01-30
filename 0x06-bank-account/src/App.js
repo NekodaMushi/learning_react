@@ -31,6 +31,9 @@ function reducer(state, action) {
         balance: state.balance + action.payload,
       };
     case ACTION.WITHDRAW:
+      if (state.balance < action.payload) {
+        return state;
+      }
       return {
         ...state,
         balance: Math.max(state.balance - action.payload, 0),
@@ -75,6 +78,7 @@ export default function App() {
 
   const [depositAmount, setDepositAmount] = useState(0);
   const [withdrawAmount, setWithdrawAmount] = useState(0);
+  const [loanAmount, setLoanAmount] = useState(0);
   return (
     <div className="App">
       <h1>useReducer Bank Account</h1>
@@ -120,6 +124,11 @@ export default function App() {
         </button>
       </p>
       <p>
+        <input
+          type="number"
+          value={loanAmount}
+          onChange={(e) => setWithdrawAmount(e.target.value)}
+        ></input>
         <button
           onClick={() => dispatch({ type: ACTION.REQUEST_LOAN, payload: 5000 })}
           disabled={!isActive}
