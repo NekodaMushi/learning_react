@@ -1,12 +1,11 @@
 import "./styles.css";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 
 const initialState = {
   balance: 0,
   loan: 0,
   isActive: false,
   activeLoan: false,
-  depositAmount: 0,
 };
 
 const ACTION = {
@@ -16,7 +15,6 @@ const ACTION = {
   REQUEST_LOAN: "requestLoan",
   PAY_LOAN: "payLoan",
   ClOSE_ACCOUNT: "CloseAccount",
-  UPDATE_DEPOSIT_AMOUNT: "depositUpdate",
 };
 
 function reducer(state, action) {
@@ -24,17 +22,13 @@ function reducer(state, action) {
     case ACTION.OPEN_ACCOUNT:
       return {
         ...state,
+        balance: 500,
         isActive: true,
       };
     case ACTION.DEPOSIT:
       return {
         ...state,
-        balance: state.balance + action.payload.depositAmount,
-      };
-    case ACTION.UPDATE_DEPOSIT_AMOUNT:
-      return {
-        ...state,
-        depositAmount: action.payload,
+        balance: state.balance + action.payload,
       };
     case ACTION.WITHDRAW:
       return {
@@ -74,14 +68,13 @@ function reducer(state, action) {
 }
 
 export default function App() {
-  const [{ balance, loan, isActive, depositAmount }, dispatch] = useReducer(
+  const [{ balance, loan, isActive }, dispatch] = useReducer(
     reducer,
     initialState
   );
 
-  const handleDepositChange = (e) => {
-    dispatch({ type: "UPDATE_DEPOSIT_AMOUNT", payload: e.target.value });
-  };
+  const [depositAmount, setDepositAmount] = useState(0);
+  const [withdrawAmount, setWithdrawAmount] = useState(0);
   return (
     <div className="App">
       <h1>useReducer Bank Account</h1>
@@ -100,7 +93,7 @@ export default function App() {
         <input
           type="number"
           value={depositAmount}
-          onChange={handleDepositChange}
+          onChange={(e) => setDepositAmount(Number(e.target.value))}
         ></input>
         <button
           onClick={() =>
@@ -112,11 +105,18 @@ export default function App() {
         </button>
       </p>
       <p>
+        <input
+          type="number"
+          value={withdrawAmount}
+          onChange={(e) => setWithdrawAmount(e.target.value)}
+        ></input>
         <button
-          onClick={() => dispatch({ type: ACTION.WITHDRAW, payload: 50 })}
+          onClick={() =>
+            dispatch({ type: ACTION.WITHDRAW, payload: withdrawAmount })
+          }
           disabled={!isActive}
         >
-          Withdraw 50
+          Withdraw
         </button>
       </p>
       <p>
