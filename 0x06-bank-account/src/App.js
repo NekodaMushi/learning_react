@@ -27,12 +27,12 @@ function reducer(state, action) {
     case ACTION.DEPOSIT:
       return {
         ...state,
-        balance: state.balance + 150,
+        balance: state.balance + action.payload,
       };
     case ACTION.WITHDRAW:
       return {
         ...state,
-        balance: Math.max(state.balance - 50, 0),
+        balance: Math.max(state.balance - action.payload, 0),
       };
     case ACTION.REQUEST_LOAN:
       if (state.activeLoan) {
@@ -41,17 +41,17 @@ function reducer(state, action) {
       return {
         ...state,
         activeLoan: true,
-        balance: state.balance + 5000,
-        loan: state.loan + 5000,
+        balance: state.balance + action.payload,
+        loan: state.loan + action.payload,
       };
     case ACTION.PAY_LOAN:
-      if (state.activeLoan === false && state.balance <= 5000) {
+      if (state.balance <= 5000 && state.activeLoan === false) {
         return state;
       }
       return {
         ...state,
-        balance: state.balance - 5000,
-        loan: state.loan - 5000,
+        balance: state.balance - action.payload,
+        loan: state.loan - action.payload,
         activeLoan: false,
       };
 
@@ -87,7 +87,7 @@ export default function App() {
       </p>
       <p>
         <button
-          onClick={() => dispatch({ type: ACTION.DEPOSIT })}
+          onClick={() => dispatch({ type: ACTION.DEPOSIT, payload: 150 })}
           disabled={!isActive}
         >
           Deposit 150
@@ -95,7 +95,7 @@ export default function App() {
       </p>
       <p>
         <button
-          onClick={() => dispatch({ type: ACTION.WITHDRAW })}
+          onClick={() => dispatch({ type: ACTION.WITHDRAW, payload: 50 })}
           disabled={!isActive}
         >
           Withdraw 50
@@ -103,7 +103,7 @@ export default function App() {
       </p>
       <p>
         <button
-          onClick={() => dispatch({ type: ACTION.REQUEST_LOAN })}
+          onClick={() => dispatch({ type: ACTION.REQUEST_LOAN, payload: 5000 })}
           disabled={!isActive}
         >
           Request a loan of 5000
@@ -111,7 +111,7 @@ export default function App() {
       </p>
       <p>
         <button
-          onClick={() => dispatch({ type: ACTION.PAY_LOAN })}
+          onClick={() => dispatch({ type: ACTION.PAY_LOAN, payload: 5000 })}
           disabled={!isActive}
         >
           Pay loan
