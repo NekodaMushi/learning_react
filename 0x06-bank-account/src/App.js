@@ -5,7 +5,7 @@ const initialState = {
   balance: 0,
   loan: 0,
   isActive: false,
-  status: "ready",
+  // status: "ready",
 };
 
 const ACTION = {
@@ -18,6 +18,7 @@ function reducer(state, action) {
     case ACTION.READY:
       return {
         ...state,
+        isActive: true,
       };
     default:
       throw new Error("Unknown Error");
