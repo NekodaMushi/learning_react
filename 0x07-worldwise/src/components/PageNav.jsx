@@ -1,7 +1,4 @@
-import { Link } from "react-router-dom";
-
 function PageNav() {
-  const test = 2;
   return (
     <div>
       <ul>
