@@ -1,5 +1,7 @@
+import { BrowserRouter, Routes } from "react-router-dom";
+
 function App() {
-  return <div>WorldWise</div>;
+  return <BrowserRouter></BrowserRouter>;
 }
 
 export default App;
