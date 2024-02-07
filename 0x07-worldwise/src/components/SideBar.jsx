@@ -1,6 +1,7 @@
 import styles from "./Sidebar.module.css";
 import Logo from "./Logo";
 import AppNav from "./AppNav";
+import Footer from "./Footer";
 
 function SideBar() {
   return (
@@ -9,6 +10,8 @@ function SideBar() {
       <AppNav />
 
       <p> List of cities</p>
+
+      <Footer />
     </div>
   );
 }

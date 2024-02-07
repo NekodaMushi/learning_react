@@ -1,3 +1,4 @@
+import styles from "./Sidebar.module.css";
 function Footer() {
   return (
     <footer className={styles.footer}>
