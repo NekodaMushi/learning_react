@@ -1,9 +1,12 @@
+import CityItem from "./CityItem";
 import styles from "./CityList.module.css";
+import Spinner from "./Spinner";
 
-function CityList() {
+function CityList({ isLoading, cities }) {
+  if (isLoading) return <Spinner />;
   return (
     <ul className={styles.cityList}>
-      <li></li>
+      <cities.map(city=> <CityItem city />))
     </ul>
   );
 }

@@ -9,7 +9,7 @@ import CityList from "./components/CityList";
 import { useState } from "react";
 import { useEffect } from "react";
 
-const BASE_USRL = "http://localhost:9000";
+const BASE_URL = "http://localhost:8000";
 
 function App() {
   const [cities, setCities] = useState({});
@@ -19,7 +19,7 @@ function App() {
     async function fetchCities() {
       try {
         setIsloading(true);
-        const res = await fetch(`${BASE_USRL}/cities`);
+        const res = await fetch(`${BASE_URL}/cities`);
         const data = await res.json();
         setCities(data);
       } catch {
@@ -28,6 +28,7 @@ function App() {
         setIsloading(false);
       }
     }
+    fetchCities();
   }, []);
 
   return (
@@ -38,7 +39,10 @@ function App() {
         <Route path="pricing" element={<Pricing />} />
         <Route path="/login" element={<Login />} />
         <Route path="app" element={<AppLayout />}>
-          <Route index element={<CityList />} />
+          <Route
+            index
+            element={<CityList cities={cities} isLoading={isLoading} />}
+          />
           <Route path="cities" element={<p>List of cities</p>} />
           <Route path="countries" element={<p>Countries</p>} />
           <Route path="form" element={<p>Form</p>} />
